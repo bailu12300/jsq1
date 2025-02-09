@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科学计算器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin: 15px;
+        }
+
+        #display {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 2em;
+            text-align: right;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        button {
+            padding: 18px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .number {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .operator {
+            background: #4dabf7;
+            color: white;
+        }
+
+        .function {
+            background: #38d9a9;
+            color: white;
+            padding: 14px;
+            font-size: 1em;
+        }
+
+        .equal {
+            background: #ff6b6b;
+            color: white;
+            grid-row: 4 / span 2;
+            height: auto;
+        }
+
+        .special {
+            background: #7950f2;
+            color: white;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                border-radius: 0;
+                margin: 0;
+                height: 100vh;
+            }
+            
+            button {
+                padding: 15px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <!-- 科学函数行 -->
+            <button class="function" onclick="addToDisplay('sin(')" style="grid-column: 1">sin</button>
+            <button class="function" onclick="addToDisplay('cos(')" style="grid-column: 2">cos</button>
+            <button class="function" onclick="addToDisplay('tan(')" style="grid-column: 3">tan</button>
+            <button class="function" onclick="addToDisplay('√(')" style="grid-column: 4">√</button>
+            <button class="function" onclick="addToDisplay('^')" style="grid-column: 5">x^y</button>
+
+            <!-- 第二行功能按钮 -->
+            <button class="function" onclick="addToDisplay('π')" style="grid-column: 1">π</button>
+            <button class="function" onclick="addToDisplay('(')" style="grid-column: 2">(</button>
+            <button class="function" onclick="addToDisplay(')')" style="grid-column: 3">)</button>
+            <button class="function" onclick="addToDisplay('log(')" style="grid-column: 4">log</button>
+            <button class="function" onclick="clearDisplay()" style="grid-column: 5">C</button>
+
+            <!-- 数字区域 -->
+            <button class="number" onclick="addToDisplay('7')" style="grid-column: 1; grid-row: 3">7</button>
+            <button class="number" onclick="addToDisplay('8')" style="grid-column: 2; grid-row: 3">8</button>
+            <button class="number" onclick="addToDisplay('9')" style="grid-column: 3; grid-row: 3">9</button>
+            
+            <button class="number" onclick="addToDisplay('4')" style="grid-column: 1; grid-row: 4">4</button>
+            <button class="number" onclick="addToDisplay('5')" style="grid-column: 2; grid-row: 4">5</button>
+            <button class="number" onclick="addToDisplay('6')" style="grid-column: 3; grid-row: 4">6</button>
+            
+            <button class="number" onclick="addToDisplay('1')" style="grid-column: 1; grid-row: 5">1</button>
+            <button class="number" onclick="addToDisplay('2')" style="grid-column: 2; grid-row: 5">2</button>
+            <button class="number" onclick="addToDisplay('3')" style="grid-column: 3; grid-row: 5">3</button>
+
+            <!-- 底部行 -->
+            <button class="number" onclick="addToDisplay('0')" style="grid-column: 1 / span 2; grid-row: 6">0</button>
+            <button class="number" onclick="addToDisplay('.')" style="grid-column: 3; grid-row: 6">.</button>
+
+            <!-- 操作符列 -->
+            <button class="operator" onclick="addToDisplay('/')" style="grid-column: 4; grid-row: 3">÷</button>
+            <button class="operator" onclick="addToDisplay('*')" style="grid-column: 4; grid-row: 4">×</button>
+            <button class="operator" onclick="addToDisplay('-')" style="grid-column: 4; grid-row: 5">-</button>
+            <button class="operator" onclick="addToDisplay('+')" style="grid-column: 4; grid-row: 6">+</button>
+
+            <!-- 等号按钮 -->
+            <button class="equal" onclick="calculate()" style="grid-column: 5; grid-row: 3 / span 4">=</button>
+        </div>
+    </div>
+
+    <script>
+        // 保持之前的脚本功能不变
+        let display = document.getElementById('display');
+
+        function addToDisplay(value) {
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function calculate() {
+            try {
+                let expr = display.value
+                    .replace(/√/g, 'Math.sqrt')
+                    .replace(/π/g, Math.PI.toString())
+                    .replace(/sin/g, 'Math.sin')
+                    .replace(/cos/g, 'Math.cos')
+                    .replace(/tan/g, 'Math.tan')
+                    .replace(/\^/g, '**')
+                    .replace(/log/g, 'Math.log10');
+                
+                // 自动补全括号
+                let open = (expr.match(/\(/g) || []).length;
+                let close = (expr.match(/\)/g) || []).length;
+                expr += ')'.repeat(open - close);
+
+                let result = eval(expr);
+                display.value = parseFloat(result.toFixed(8)).toString();
+            } catch (e) {
+                display.value = '错误';
+                setTimeout(clearDisplay, 1000);
+            }
+        }
+
+        // 键盘支持
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9' || e.key === '.') {
+                addToDisplay(e.key);
+            }
+            switch(e.key.toLowerCase()) {
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '^':
+                    addToDisplay(e.key);
+                    break;
+                case 'enter':
+                    calculate();
+                    break;
+                case 'escape':
+                    clearDisplay();
+                    break;
+                case 'p':
+                    addToDisplay('π');
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
