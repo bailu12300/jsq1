@@ -2,7 +2,7 @@
 
 一个简洁易用的网页版科学计算器，支持手机、平板和电脑使用，打开浏览器就能用！
 
-[![演示截图](https://via.placeholder.com/400x700/0088ff/ffffff?text=截图占位符)](https://你的用户名.github.io/计算器仓库名)
+
 
 ## 🌟 主要功能
 - **基础计算**：加减乘除、小数运算
@@ -16,7 +16,7 @@
 
 或扫码体验：
 [![QR Code](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://bailu12300.github.io/jsqcalculator)](https://bailu12300.github.io/jsqcalculator)
-https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://bailu12300.github.io/jsqcalculator&color=2c3e50&bgcolor=ecf0f1&margin=15
+
 
 
 ## 🛠️ 如何安装
