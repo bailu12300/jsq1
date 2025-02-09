@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>近期十大事件</title>
+    <title>科技学术十大事件</title>
     <style>
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
@@ -19,7 +19,7 @@
             margin-bottom: 30px;
         }
 
-        .news-article {
+        .events-container {
             background: white;
             padding: 30px;
             border-radius: 12px;
@@ -32,32 +32,91 @@
             padding-bottom: 10px;
         }
 
-        .news-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin: 20px 0;
+        .event-list {
+            list-style: none;
+            padding: 0;
         }
 
-        .news-content {
-            line-height: 1.8;
-            color: #333;
+        .event-item {
+            margin: 15px 0;
+            padding: 12px;
+            border-left: 4px solid #00b894;
+            transition: transform 0.2s;
+        }
+
+        .event-item:hover {
+            transform: translateX(10px);
+        }
+
+        .event-link {
+            color: #2d3436;
+            text-decoration: none;
             font-size: 16px;
+            display: block;
+        }
+
+        .event-link:hover {
+            color: #0984e3;
         }
     </style>
 </head>
 <body>
     <div class="timestamp" id="timestamp"></div>
     
-    <div class="news-article">
-        <h1>全球首例脑机接口人体移植成功</h1>
-        <img src="https://source.unsplash.com/random/800x400?tech,medical" class="news-img" alt="科技医疗">
-        <div class="news-content">
-            <p>北京时间今日凌晨，NeuralTech公司宣布完成全球首例商业化脑机接口设备人体移植手术。该手术历时12小时，在清华大学附属长庚医院完成...</p>
-            <p>据项目负责人介绍，本次植入的NerveLink 1.0芯片包含3072个电极通道，能够实时捕捉大脑神经信号并转化为数字指令。首位受试者张先生（化名）表示...</p>
-            <p>此项突破引发医学界和科技界的广泛讨论。伦理学家提醒需注意技术安全边界，而资本市场相关概念股今日早盘集体上涨...</p>
-        </div>
+    <div class="events-container">
+        <h1>2025年科技学术十大事件</h1>
+        <ul class="event-list">
+            <li class="event-item">
+                <a href="https://tech.sina.com.cn/2025-02/ai-quantum-breakthrough" class="event-link" target="_blank">
+                    中国科学家实现常温超导量子计算机重大突破
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://www.cas.cn/kj/202502/t20250207_5487123.html" class="event-link" target="_blank">
+                    中国科学院发布全球首个脑机接口技术标准白皮书
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://new.qq.com/rain/a/20250207A08B5M00" class="event-link" target="_blank">
+                    嫦娥七号完成月球南极水冰样本采集并启程返航
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://tech.163.com/25/0207/12/EPV4K8K300097U7R.html" class="event-link" target="_blank">
+                    清华大学研发新型钙钛矿光伏材料转化效率突破40%
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://www.nsfc.gov.cn/xw/news/202502/t20250206_105678.html" class="event-link" target="_blank">
+                    国家自然科学基金委启动"人工智能基础理论"重大研究计划
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://www.ithome.com/0/750/123.htm" class="event-link" target="_blank">
+                    全球首台E级超算"天河四号"正式投入运行
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://news.sciencenet.cn/htmlnews/2025/2/421524.shtm" class="event-link" target="_blank">
+                    《自然》封面文章报道中国团队仿生机器人触觉新突破
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://tech.ifeng.com/c/8XqgQpW0Ww4" class="event-link" target="_blank">
+                    华为联合高校研发6G太赫兹通信原型机完成测试
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://www.kejilie.com/read/25/0207/ED7hq2.html" class="event-link" target="_blank">
+                    基因编辑治疗阿尔茨海默病进入临床二期试验
+                </a>
+            </li>
+            <li class="event-item">
+                <a href="https://www.zhihu.com/special/20250207-tech" class="event-link" target="_blank">
+                    国际空间站宣布将首次进行太空干细胞培育实验
+                </a>
+            </li>
+        </ul>
     </div>
 
     <script>
@@ -76,17 +135,8 @@
                 `最后更新：${new Date().toLocaleDateString('zh-CN', options)}`;
         }
 
-        // 初始化时间戳并设置每秒更新
         updateTimestamp();
         setInterval(updateTimestamp, 1000);
-
-        // 图片预加载优化
-        window.addEventListener('load', function() {
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                img.style.opacity = 1;
-            });
-        });
     </script>
 </body>
 </html>
